@@ -33,6 +33,11 @@ $service->addObservers(new AnalyticsConfirmationObserver());
 $service->addObservers(new SMSConfirmationObserver());
 
 
-$total = $service->confirm($booking, new StripeAdapter(new StripeClient()));
+$stripeClient = new StripeClient();
+$stripeAdapter = new StripeAdapter($stripeClient);
+
+$supervisedPayment = new PaymentSupervision($stripeAdapter);
+
+$total = $service->confirm($booking, $supervisedPayment);
 
 echo 'TOTAL FINAL: ' . number_format($total, 2, '.', '') . PHP_EOL;
