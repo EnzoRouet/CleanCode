@@ -14,25 +14,8 @@ final class BookingService
             throw new RuntimeException('Invalid email');
         }
 
-        $total = 0.0;
-
-        foreach ($booking->items as $item) {
-            if ($item->quantity <= 0) {
-                throw new RuntimeException('Invalid quantity');
-            }
-
-            $total += $item->ticket->price * $item->quantity;
-        }
-
-        // Ancienne règle VIP : remise fixe de 10 %.
-        if ($booking->customer->type === 'vip') {
-            $total *= 0.90;
-        }
-
-        // Ancienne règle Pass 3 jours : remise fixe de 10 euros.
-        if ($booking->passType === '3days') {
-            $total -= 10.0;
-        }
+        $pricingStrategy = new PricingCalculator();
+        $total = $pricingStrategy->totalPrice($booking);
 
         if ($paymentMethod === 'stripe') {
             $stripe = new StripeClient();
