@@ -35,3 +35,7 @@ Casser le flux critique : Le paiement Stripe et l'insertion SQL étant fortement
 ## Justification Pattern
 
 Pour le ticket numéro 102 j'ai anticipé l'utilisation du pattern Strategy. J'ai décider de l'utiliser car dans l'énoncer on nous dit que le service commercial pourrait rajouter de nouevelles politiques tarifaires. Dans l'immédiat une simple méthode aurait suffit mais la création de l'interface PricingStrategy garantit le respect de l'OCP. Ainsi on pourra aisément rajouter de nouvelles règles sans casser l'existent
+
+Pour le ticket numéro 103, j'ai utilisé le pattern Adapter afin de rendre le SDK externe PayFastSdk compatible avec l'interface commune PaymentGateway. Cela permet d'isoler les détails techniques de l'API externe et d'éviter que le code métier (BookingService) ne dépende directement de son implémentation.
+
+Pour le ticket numéro 105 , J'ai utilisé le pattern Decorator pour "envelopper" le système de paiement. Cela permet d'ajouter ces actions techniques sans modifier le code d'origine de Stripe ou PayFast, et sans polluer la logique métier.
