@@ -41,3 +41,11 @@ Pour le ticket numéro 103, j'ai utilisé le pattern Adapter afin de rendre le S
 Pour le ticket numéro 104, j'ai utilisé le pattern Observer. J'ai décider de l'utiliser car cela nous permet de pouvoir rajouter des reactions quand on veut de manière aisée sans cassé ce qui fonctionne déjà.
 
 Pour le ticket numéro 105 , J'ai utilisé le pattern Decorator pour "envelopper" le système de paiement. Cela permet d'ajouter ces actions techniques sans modifier le code d'origine de Stripe ou PayFast, et sans polluer la logique métier.
+
+## Justification Ticket #106
+
+1. J'ai refactorer les nombres magiques qu'on avait dans les calcul pour le prix en fonction du statut de la personne qui commande. A la place de nombres a la volée j'ai fait des constantes explicites propres a la classe de calcul. C'est important pour les changements de prix des reductions ou autres car au lieu de parcourir tout le fichier de clacul on a juste a changé la valeur de la constante.
+
+2. J'ai changer l'emplacement du garde fou sur l'email. Celui ci était dans le BookingService mais sa place était dans la classe Customer. Cela permet une décharge de résponsabilité de la classe BookingService.
+
+3. J'ai réduit l'imbrication par rapport au payement qui étais dans BookService en retirant tout les if/else pour juste 2 lignes.

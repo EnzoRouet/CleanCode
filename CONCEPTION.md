@@ -7,18 +7,14 @@
 ## 2. Principes SOLID mobilisés
 
 Pour chaque principe réellement utilisé :
+
 - problème initial ;
 - classes concernées ;
 - bénéfice obtenu.
 
 ## 3. Design Patterns éventuellement utilisés
 
-Pour chaque pattern :
-- problème rencontré ;
-- solution retenue ;
-- pourquoi une solution plus simple ne suffisait pas.
-
-Si aucun pattern n'est utilisé sur une partie du projet, expliquez pourquoi.
+A voir dans le AUDIT.md tout est expliqué
 
 ## 4. Solutions envisagées puis écartées
 
