@@ -38,4 +38,6 @@ Pour le ticket numéro 102 j'ai anticipé l'utilisation du pattern Strategy. J'a
 
 Pour le ticket numéro 103, j'ai utilisé le pattern Adapter afin de rendre le SDK externe PayFastSdk compatible avec l'interface commune PaymentGateway. Cela permet d'isoler les détails techniques de l'API externe et d'éviter que le code métier (BookingService) ne dépende directement de son implémentation.
 
+Pour le ticket numéro 104, j'ai utilisé le pattern Observer. J'ai décider de l'utiliser car cela nous permet de pouvoir rajouter des reactions quand on veut de manière aisée sans cassé ce qui fonctionne déjà.
+
 Pour le ticket numéro 105 , J'ai utilisé le pattern Decorator pour "envelopper" le système de paiement. Cela permet d'ajouter ces actions techniques sans modifier le code d'origine de Stripe ou PayFast, et sans polluer la logique métier.
