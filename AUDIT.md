@@ -32,16 +32,6 @@ Régression sur les statuts : Oublier de passer le statut de la commande à "con
 
 Casser le flux critique : Le paiement Stripe et l'insertion SQL étant fortement couplés au service, les isoler risque de casser l'étape finale d'achat si on réinjecte mal les dépendances
 
-## Justification Pattern
-
-Pour le ticket numéro 102 j'ai anticipé l'utilisation du pattern Strategy. J'ai décider de l'utiliser car dans l'énoncer on nous dit que le service commercial pourrait rajouter de nouevelles politiques tarifaires. Dans l'immédiat une simple méthode aurait suffit mais la création de l'interface PricingStrategy garantit le respect de l'OCP. Ainsi on pourra aisément rajouter de nouvelles règles sans casser l'existent
-
-Pour le ticket numéro 103, j'ai utilisé le pattern Adapter afin de rendre le SDK externe PayFastSdk compatible avec l'interface commune PaymentGateway. Cela permet d'isoler les détails techniques de l'API externe et d'éviter que le code métier (BookingService) ne dépende directement de son implémentation.
-
-Pour le ticket numéro 104, j'ai utilisé le pattern Observer. J'ai décider de l'utiliser car cela nous permet de pouvoir rajouter des reactions quand on veut de manière aisée sans cassé ce qui fonctionne déjà.
-
-Pour le ticket numéro 105 , J'ai utilisé le pattern Decorator pour "envelopper" le système de paiement. Cela permet d'ajouter ces actions techniques sans modifier le code d'origine de Stripe ou PayFast, et sans polluer la logique métier.
-
 ## Justification Ticket #106
 
 1. J'ai refactorer les nombres magiques qu'on avait dans les calcul pour le prix en fonction du statut de la personne qui commande. A la place de nombres a la volée j'ai fait des constantes explicites propres a la classe de calcul. C'est important pour les changements de prix des reductions ou autres car au lieu de parcourir tout le fichier de clacul on a juste a changé la valeur de la constante.
