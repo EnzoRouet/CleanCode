@@ -9,6 +9,8 @@ php tests/characterization.php : Output :
 
 Passed: 4, Failed: 0
 
+---
+
 Output Final :
 
 php index.php : Output :
