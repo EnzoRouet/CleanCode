@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 final class BookingService
 {
-    public function confirm(Booking $booking, string $paymentMethod = 'stripe'): float
+    public function confirm(Booking $booking, PaymentGateway $paymentGateway): float
     {
         if (count($booking->items) === 0) {
             throw new RuntimeException('Empty booking');
@@ -34,16 +34,9 @@ final class BookingService
             $total -= 10.0;
         }
 
-        if ($paymentMethod === 'stripe') {
-            $stripe = new StripeClient();
-            $transactionId = $stripe->charge($total);
-            echo "PAYMENT {$transactionId}" . PHP_EOL;
-        } elseif ($paymentMethod === 'payfast') {
-            throw new RuntimeException('PayFast not implemented');
-        } else {
-            throw new RuntimeException('Unknown payment method');
-        }
-
+        $transactionId = $paymentGateway->pay($total);
+        echo 'Payment successful, transaction ID: ' . $transactionId . PHP_EOL;
+        
         $booking->status = 'confirmed';
 
         echo "SQL INSERT booking={$booking->id} total={$total} status={$booking->status}" . PHP_EOL;
