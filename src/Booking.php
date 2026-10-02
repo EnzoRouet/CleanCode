@@ -11,7 +11,8 @@ final class Booking
     public function __construct(
         public int $id,
         public Customer $customer,
-        public string $passType = 'day'
+        public string $passType = 'day',
+        public int $points = 10
     ) {
     }
 
