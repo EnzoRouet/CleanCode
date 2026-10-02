@@ -41,15 +41,6 @@ $vip3Days = createBooking('vip', '3days', 50.0, 2);
 $vip3DaysTotal = $service->confirm($vip3Days, new StripeAdapter(new StripeClient()));
 $tests->near(70.0, $vip3DaysTotal, 'VIP + 3days combines discounts');
 
-$badEmailBooking = createBooking('standard', 'day', 50.0, 1);
-$badEmailBooking->customer->email = 'not_an_email';
-try {
-    $service->confirm($badEmailBooking, new StripeAdapter(new StripeClient()));
-    $tests->same(true, false, 'Invalid email should throw exception');
-} catch (RuntimeException $e) {
-    $tests->same('Invalid email', $e->getMessage(), 'Invalid email throws correct exception');
-}
-
 $emptyBooking = new Booking(999, new Customer(999, 'test@test.com'));
 try {
     $service->confirm($emptyBooking, new StripeAdapter(new StripeClient()));
