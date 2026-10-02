@@ -4,6 +4,14 @@ declare(strict_types=1);
 
 final class BookingService
 {
+    private array $observers = [];
+
+
+    public function addObservers(BookingObserver $bookingObserver): void
+    {
+        $this->observers[] = $bookingObserver;
+    }
+
     public function confirm(Booking $booking, PaymentGateway $paymentGateway): float
     {
         if (count($booking->items) === 0) {
@@ -24,8 +32,9 @@ final class BookingService
 
         echo "SQL INSERT booking={$booking->id} total={$total} status={$booking->status}" . PHP_EOL;
 
-        $emailService = new EmailService();
-        $emailService->sendConfirmation($booking->customer->email, $booking->id);
+        foreach ($this->observers as $observer) {
+            $observer->update($booking);
+        }
 
         return $total;
     }
