@@ -31,3 +31,7 @@ Régression sur la facturation : En extrayant la logique de calcul du prix hors 
 Régression sur les statuts : Oublier de passer le statut de la commande à "confirmed" après refactorer le code
 
 Casser le flux critique : Le paiement Stripe et l'insertion SQL étant fortement couplés au service, les isoler risque de casser l'étape finale d'achat si on réinjecte mal les dépendances
+
+## Justification Pattern
+
+Pour le ticket numéro 102 j'ai anticipé l'utilisation du pattern Strategy. J'ai décider de l'utiliser car dans l'énoncer on nous dit que le service commercial pourrait rajouter de nouevelles politiques tarifaires. Dans l'immédiat une simple méthode aurait suffit mais la création de l'interface PricingStrategy garantit le respect de l'OCP. Ainsi on pourra aisément rajouter de nouvelles règles sans casser l'existent
