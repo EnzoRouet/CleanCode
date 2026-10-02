@@ -54,3 +54,6 @@ final class BookingService
         return $total;
     }
 }
+
+
+// Remise VIP, Pass 3 jours, verification payment, verification quantité items, email, enregistrement SQL, calcul du prix total, garde fous email, verification booking pas vide

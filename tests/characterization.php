@@ -37,5 +37,26 @@ $threeDays = createBooking('standard', '3days', 60.0, 2);
 $threeDaysTotal = $service->confirm($threeDays, 'stripe');
 $tests->near(110.0, $threeDaysTotal, 'legacy three day pass discount is 10 euros');
 
+$vip3Days = createBooking('vip', '3days', 50.0, 2);
+$vip3DaysTotal = $service->confirm($vip3Days, 'stripe');
+$tests->near(80.0, $vip3DaysTotal, 'VIP + 3days combines discounts');
+
+$badEmailBooking = createBooking('standard', 'day', 50.0, 1);
+$badEmailBooking->customer->email = 'not_an_email';
+try {
+    $service->confirm($badEmailBooking, 'stripe');
+    $tests->same(true, false, 'Invalid email should throw exception');
+} catch (RuntimeException $e) {
+    $tests->same('Invalid email', $e->getMessage(), 'Invalid email throws correct exception');
+}
+
+$emptyBooking = new Booking(999, new Customer(999, 'test@test.com'));
+try {
+    $service->confirm($emptyBooking, 'stripe');
+    $tests->same(true, false, 'Empty booking should throw exception');
+} catch (RuntimeException $e) {
+    $tests->same('Empty booking', $e->getMessage(), 'Empty booking throws correct exception');
+}
+
 ob_end_clean();
 $tests->summary();
