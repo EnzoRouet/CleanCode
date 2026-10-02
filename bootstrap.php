@@ -20,7 +20,7 @@ require_once __DIR__ . '/src/AnalyticsClient.php';
 
 require_once __DIR__ . '/src/StripeAdapter.php';
 require_once __DIR__ . '/src/PayFastAdapter.php';
-require_once __DIR__ . '/src/PricingCalculate.php';
+require_once __DIR__ . '/src/PricingCalculator.php';
 require_once __DIR__ . '/src/PaymentSupervision.php';
 
 require_once __DIR__ . '/src/AnalyticsConfirmationObserver.php';
